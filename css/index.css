@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Poetsen+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Condensed+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Poetsen+One&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Condensed+One&display=swap");
+
+/* Global styles */
+
+body {
+  color: black;
+  font-family: "Ancizar Sans", Arial;
+  background: #04c4fb;
+  text-align: center;
+}
+
+header {
+  padding: 1rem 4rem;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border-radius: 100px;
+  box-shadow: 0 0 20px rgb(255, 255, 255);
+  width: 50%;
+  margin: 2rem auto 0 auto;
+}
+
+div {
+  font-size: 2.5rem;
+  align-content: center;
+  margin: 2rem auto 2rem auto;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border-radius: 100px;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+  width: 60%;
+}
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 1rem;
+}
+
+h1 {
+  font-family: Merriweather, Arial;
+  font-weight: bold;
+}
+
+/* Layout */
+
+footer {
+  background-color: #000000;
+  color: #ffffff;
+  text-align: center;
+  border: #00000017 solid 0.2rem;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+footer p {
+  margin: 1em;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+#temperature,
+#weather-code,
+#wind-speed {
+  font-size: 1.5rem;
+  display: grid;
+  text-shadow: 0px 1px 4px #00000017;
+  align-content: center;
+  justify-content: center;
+}
+
+#weather-code {
+  margin-bottom: 10rem;
+}
+
+/* Media Queries*/
+
+/* Tablets */
+@media (min-width: 600px) {
+  #temperature,
+  #weather-code,
+  #wind-speed {
+    font-size: 1.2rem;
+    align-content: center;
+    justify-content: center;
+    margin: 2rem;
+    height: 8rem;
+    width: 400px;
+    align-self: center;
+    top: 50%;
+    transform: translateY(30%);
+    -webkit-transform: translateY(30%);
+    -moz-transform: translateY(30%);
+    -ms-transform: translateY(30%);
+    -o-transform: translateY(30%);
+  }
+
+  main {
+    position: relative;
+    height: 8rem;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 2rem auto 2rem auto;
+  }
+}
+
+/* Larger Than Tablets */
+@media (min-width: 1000px) {
+  header {
+    width: 40%;
+    height: 10%;
+    margin: auto;
+    align-content: center;
+    justify-content: center;
+  }
+  main {
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 2rem auto 2rem auto;
+  }
+  #temperature,
+  #weather-code,
+  #wind-speed {
+    font-size: 1rem;
+    align-content: center;
+    justify-content: center;
+    margin: 0.25rem 2rem;
+    transform: translateY(60%);
+    -webkit-transform: translateY(60%);
+    -moz-transform: translateY(60%);
+    -ms-transform: translateY(60%);
+    -o-transform: translateY(60%);
+  }
+}
