@@ -44,7 +44,6 @@ async function getWeatherData() {
         95: "Thunderstorm: Slight or moderate",
         96: "Thunderstorm with slight hail",
         99: "Thunderstorm with heavy hail",
-        // Add more codes as needed
       };
       document.getElementById(
         "temperature"
@@ -58,6 +57,14 @@ async function getWeatherData() {
     }
   } catch (error) {
     console.log(error);
+
+    const errorMessage = document.createElement("p");
+    errorMessage.innerHTML = `<p>Error: ${error.message}</p>`;
+    errorMessage.style.color = "red";
+    errorMessage.style.fontSize = "20px";
+    document.getElementById("temperature").appendChild(errorMessage);
+    document.getElementById("wind-speed").style.display = "none";
+    document.getElementById("weather-code").style.display = "none";
   }
 }
 
