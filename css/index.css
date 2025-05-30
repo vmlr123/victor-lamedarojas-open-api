@@ -15,23 +15,31 @@ header {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   border-radius: 100px;
-  box-shadow: 0 0 20px rgb(255, 255, 255);
+  box-shadow: 0 0 5px rgb(255, 255, 255);
   width: 50%;
   margin: 2rem auto 0 auto;
 }
 
-div {
-  font-size: 2.5rem;
-  align-content: center;
-  margin: 2rem auto 2rem auto;
-  padding: 1rem 2rem;
-  background-color: white;
-  color: rgb(0, 0, 0);
+nav {
+  margin: 2rem 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #eeeeee1f;
   border-radius: 100px;
   box-shadow: 0 0 10px rgb(255, 255, 255);
-  width: 60%;
 }
 
+main {
+  height: 8rem;
+  align-content: center;
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+  margin: 2rem auto 20rem;
+}
 /* Typography */
 
 h1,
@@ -46,6 +54,8 @@ h1 {
   font-family: Merriweather, Arial;
   font-weight: bold;
 }
+
+/* End of Typography */
 
 /* Layout */
 
@@ -69,16 +79,84 @@ footer p {
 #temperature,
 #weather-code,
 #wind-speed {
-  font-size: 1.5rem;
   display: grid;
   text-shadow: 0px 1px 4px #00000017;
   align-content: center;
   justify-content: center;
+  font-size: 2.5rem;
+  margin: 2rem auto 0 auto;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border-radius: 100px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+  height: 100%;
 }
 
-#weather-code {
-  margin-bottom: 10rem;
+#sun {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: -100px;
+  left: -100px;
+  z-index: -1;
+  background-color: #f9d71c;
+  box-shadow: 0 0 100px #f9d71c;
+  border-radius: 50%;
 }
+
+#loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #000000;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+nav ul li {
+  margin: 0 1rem 1rem;
+}
+nav li {
+  text-decoration: none;
+  color: black;
+  font-family: Arial;
+  font-size: 1.5rem;
+  padding: 1rem;
+  background-color: #a7a7a763;
+  border-radius: 100px;
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+
+nav li:hover {
+  background-color: #a7a7a7;
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+}
+
+nav li a:visited,
+nav li a:link {
+  color: black;
+  text-decoration: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* End of Layout */
+
+/* End of Global Styles */
 
 /* Media Queries*/
 
@@ -87,7 +165,6 @@ footer p {
   #temperature,
   #weather-code,
   #wind-speed {
-    font-size: 1.2rem;
     align-content: center;
     justify-content: center;
     margin: 2rem;
@@ -95,22 +172,6 @@ footer p {
     width: 400px;
     align-self: center;
     top: 50%;
-    transform: translateY(30%);
-    -webkit-transform: translateY(30%);
-    -moz-transform: translateY(30%);
-    -ms-transform: translateY(30%);
-    -o-transform: translateY(30%);
-  }
-
-  main {
-    position: relative;
-    height: 8rem;
-    align-content: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: 2rem auto 2rem auto;
   }
 }
 
@@ -126,22 +187,14 @@ footer p {
   main {
     align-content: center;
     justify-content: center;
-    display: flex;
-    flex-direction: column;
     width: 50%;
-    margin: 2rem auto 2rem auto;
+    margin: 2rem auto 20rem;
   }
   #temperature,
   #weather-code,
   #wind-speed {
-    font-size: 1rem;
     align-content: center;
     justify-content: center;
     margin: 0.25rem 2rem;
-    transform: translateY(60%);
-    -webkit-transform: translateY(60%);
-    -moz-transform: translateY(60%);
-    -ms-transform: translateY(60%);
-    -o-transform: translateY(60%);
   }
 }
