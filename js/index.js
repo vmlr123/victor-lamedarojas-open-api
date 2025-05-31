@@ -1,8 +1,58 @@
-const url =
-  "https://api.open-meteo.com/v1/forecast?latitude=35.7721&longitude=-78.6386&current=temperature_2m,weather_code,wind_speed_10m&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch";
+// This script fetches the current weather data from the Open-meteo API and displays it on the web page
 
-async function getWeatherData() {
+// Clear weather data content on page load
+
+function clearContent() {
+  document.getElementById("temperature").style.display = "none";
+  document.getElementById("wind-speed").style.display = "none";
+  document.getElementById("weather-code").style.display = "none";
+  document.getElementById("loader").style.display = "none";
+}
+clearContent();
+
+// Function to set the background color based on the time of day
+
+async function setTimeOfDay() {
   try {
+    const url =
+      "https://api.open-meteo.com/v1/forecast?latitude=35.7721&longitude=-78.6386&current";
+    document.getElementById("loader").style.display = "";
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+    console.log(data);
+    if (data.current) {
+      // Clear previous content
+      clearContent();
+      let time = data.current.time.split("T")[1].split(":")[0] - 4;
+      // Display sun or moon based on time
+      const isNight = time >= 19 || time <= 6;
+      if (isNight) {
+        const sun = document.getElementById("sun");
+        sun.style.background = "white";
+        sun.style.boxShadow = "0 0 100px white";
+        document.body.style.background = "#272757";
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+// Call function to set background based on time of day
+setTimeOfDay();
+
+// Functions to get the current temperature, wind speed, and weather condition and display them in the HTML
+
+// Function to get the current temperature
+async function getCurrentTemperature() {
+  // Clear previous content
+  clearContent();
+  document.getElementById("loader").style.display = "";
+  try {
+    const url =
+      "https://api.open-meteo.com/v1/forecast?latitude=35.7721&longitude=-78.6386&current=temperature_2m&temperature_unit=fahrenheit";
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(response.status);
@@ -11,9 +61,82 @@ async function getWeatherData() {
     console.log(data);
     if (data.current) {
       const temperature = data.current.temperature_2m;
-      const windSpeed = data.current.wind_speed_10m;
-      const weatherCode = data.current.weather_code;
+      document.getElementById(
+        "temperature"
+      ).innerHTML = `<p>Temperature:\n <strong>${temperature}°F</strong></p>`;
+      document.getElementById("temperature").style.display = "";
+    }
+  } catch (error) {
+    console.log(error);
 
+    const errorMessage = document.createElement("p");
+    errorMessage.innerHTML = `<p>Error: ${error.message}</p>`;
+    errorMessage.style.color = "red";
+    errorMessage.style.fontSize = "20px";
+    document.getElementById("temperature").appendChild(errorMessage);
+    document.getElementById("temperature").style.display = "";
+  }
+  document.getElementById("loader").style.display = "none";
+  document
+    .getElementById("temperature-link")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+// Function to get the current wind speed
+async function getCurrentWindSpeed() {
+  // Clear previous content
+  clearContent();
+  document.getElementById("loader").style.display = "";
+  try {
+    const url =
+      "https://api.open-meteo.com/v1/forecast?latitude=35.7721&longitude=-78.6386&current=wind_speed_10m&wind_speed_unit=mph";
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+    console.log(data);
+    if (data.current) {
+      const windSpeed = data.current.wind_speed_10m;
+      document.getElementById(
+        "wind-speed"
+      ).innerHTML = `<p>Wind:\n <strong>${windSpeed} mph</strong></p>`;
+      document.getElementById("wind-speed").style.display = "";
+    }
+  } catch (error) {
+    console.log(error);
+
+    const errorMessage = document.createElement("p");
+    errorMessage.innerHTML = `<p>Error: ${error.message}</p>`;
+    errorMessage.style.color = "red";
+    errorMessage.style.fontSize = "20px";
+    document.getElementById("wind-speed").appendChild(errorMessage);
+    document.getElementById("wind-speed").style.display = "";
+    document.getElementById("temperature").style.display = "none";
+    document.getElementById("weather-code").style.display = "none";
+  }
+  document.getElementById("loader").style.display = "none";
+  document
+    .getElementById("temperature-link")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+// Function to get the current weather condition
+async function getCurrentWeatherCondition() {
+  // Clear previous content
+  clearContent();
+  document.getElementById("loader").style.display = "";
+  try {
+    const url =
+      "https://api.open-meteo.com/v1/forecast?latitude=35.7721&longitude=-78.6386&current=weather_code";
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    const data = await response.json();
+    console.log(data);
+    if (data.current) {
+      const weatherCode = data.current.weather_code;
       // Display the data in the HTML
       const weatherCodes = {
         0: "Clear sky",
@@ -46,14 +169,9 @@ async function getWeatherData() {
         99: "Thunderstorm with heavy hail",
       };
       document.getElementById(
-        "temperature"
-      ).innerHTML = `<p>Temperature:\n <strong>${temperature}°F</strong></p>`;
-      document.getElementById(
-        "wind-speed"
-      ).innerHTML = `<p>Wind:\n <strong>${windSpeed} mph</strong></p>`;
-      document.getElementById(
         "weather-code"
       ).innerHTML = `<p><strong>${weatherCodes[weatherCode]}</strong></p>`;
+      document.getElementById("weather-code").style.display = "";
     }
   } catch (error) {
     console.log(error);
@@ -62,15 +180,35 @@ async function getWeatherData() {
     errorMessage.innerHTML = `<p>Error: ${error.message}</p>`;
     errorMessage.style.color = "red";
     errorMessage.style.fontSize = "20px";
-    document.getElementById("temperature").appendChild(errorMessage);
+    document.getElementById("weather-code").appendChild(errorMessage);
+    document.getElementById("temperature").style.display = "none";
     document.getElementById("wind-speed").style.display = "none";
-    document.getElementById("weather-code").style.display = "none";
+    document.getElementById("weather-code").style.display = "";
   }
+  document.getElementById("loader").style.display = "none";
+  document
+    .getElementById("temperature-link")
+    .scrollIntoView({ behavior: "smooth" });
 }
 
-// Call the function to get weather data
-getWeatherData();
+// Add event listeners to the links
 
+const temperatureLink = document.getElementById("temperature-link");
+temperatureLink.addEventListener("click", function () {
+  getCurrentTemperature();
+});
+
+const windSpeedLink = document.getElementById("wind-speed-link");
+windSpeedLink.addEventListener("click", function () {
+  getCurrentWindSpeed();
+});
+
+const weatherCodeLink = document.getElementById("weather-code-link");
+weatherCodeLink.addEventListener("click", function () {
+  getCurrentWeatherCondition();
+});
+
+// Create footer element and append it to the body
 let createFooter = document.createElement("footer");
 document.body.appendChild(createFooter);
 

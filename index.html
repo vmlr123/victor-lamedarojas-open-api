@@ -8,13 +8,28 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.png?" />
   </head>
   <body>
+    <div id="sun"></div>
     <header>
       <h1>Weather Data in Raleigh, NC right now</h1>
+      <p>
+        This project uses the Open-meteo API to display current weather data for
+        Raleigh, NC.
+      </p>
+      <nav>
+        <ul>
+          <li id="temperature-link"><a href="#temperature">Temperature</a></li>
+          <li id="wind-speed-link"><a href="#wind-speed">Wind Speed</a></li>
+          <li id="weather-code-link">
+            <a href="#weather-code">Weather Condition</a>
+          </li>
+        </ul>
+      </nav>
     </header>
     <main>
       <div id="temperature"></div>
       <div id="wind-speed"></div>
       <div id="weather-code"></div>
+      <div id="loader"></div>
     </main>
     <script src="js/index.js"></script>
   </body>
